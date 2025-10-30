@@ -1,0 +1,215 @@
+@startuml ShoppingCart
+
+class ShoppingCart {
+  - cartID: int
+  - items: List<Abaya>
+  - totalPrice: double
+
+  + ShoppingCart()
+  + ShoppingCart(cartID: int, items: List<Abaya>, totalPrice: double)
+  + getCartID(): int
+  + setCartID(cartID: int): void
+  + getItems(): List<Abaya>
+  + setItems(items: List<Abaya>): void
+  + getTotalPrice(): double
+  + setTotalPrice(totalPrice: double): void
+  + removeItem(item: Abaya): void
+  + clearCart(): void
+  + calculateTotalPrice(): double
+  + toString(): String
+  + equals(obj: Object): boolean
+  + handleShoppingCartActions(scanner: Scanner): void
+}
+
+class Customer {
+  - firstName: String
+  - lastName: String
+  - phoneNumber: String
+  - address: String
+  - customerId: int
+  - shoppingCart: ShoppingCart
+  - orderHistory: ArrayList<Order>
+
+  + Customer()
+  + Customer(firstName: String, lastName: String, phoneNumber: String, address: String, customerId: int, shoppingCart: ShoppingCart, orderHistory: ArrayList<Order>)
+  + getFirstName(): String
+  + setFirstName(firstName: String): void
+  + getLastName(): String
+  + setLastName(lastName: String): void
+  + getPhoneNumber(): String
+  + setPhoneNumber(phoneNumber: String): void
+  + getAddress(): String
+  + setAddress(address: String): void
+  + getCustomerId(): int
+  + setCustomerId(customerId: int): void
+  + getShoppingCart(): ShoppingCart
+  + setShoppingCart(shoppingCart: ShoppingCart): void
+  + getOrderHistory(): ArrayList<Order>
+  + setOrderHistory(orderHistory: ArrayList<Order>): void
+  + getFullName(): String
+  + equals(obj: Object): boolean
+  + toString(): String
+
+  {static} + getCustomerInfo(scanner: Scanner): Customer
+  {static} + processCustomerChanges(scanner: Scanner, abayaArrayList: ArrayList<Abaya>): void
+  {static} + getDeliveryInformation(scanner: Scanner, customer: Customer): void
+  {static} - validatePhoneNumber(scanner: Scanner): String
+}
+
+class Order {
+  - orderID: int
+  - customer: Customer
+  - shoppingCart: ShoppingCart
+  - paymentDetails: Payment
+  - orderDate: Date
+  - orderStatus: String
+
+  + Order()
+  + Order(orderID: int, customer: Customer, shoppingCart: ShoppingCart, paymentDetails: Payment, orderDate: Date)
+  + getOrderID(): int
+  + setOrderID(orderID: int): void
+  + getCustomer(): Customer
+  + setCustomer(customer: Customer): void
+  + getShoppingCart(): ShoppingCart
+  + setShoppingCart(shoppingCart: ShoppingCart): void
+  + getPaymentDetails(): Payment
+  + setPaymentDetails(paymentDetails: Payment): void
+  + getOrderDate(): Date
+  + setOrderDate(orderDate: Date): void
+  + getOrderStatus(): String
+  + setOrderStatus(orderStatus: String): void
+  + cancelOrder(): void
+  + updateStatus(newStatus: String): void
+  + toString(): String
+  + equals(obj: Object): boolean
+
+  {static} + processCheckout(scanner: Scanner, customer: Customer, shoppingCart: ShoppingCart): void
+  {static} + createOrder(customer: Customer, shoppingCart: ShoppingCart, creditCardPayment: CreditCardPayment): Order
+  {static} + displayOrderConfirmation(customer: Customer, order: Order, shoppingCart: ShoppingCart, creditCardPayment: CreditCardPayment): void
+  {static} + handleOrderActions(scanner: Scanner, customer: Customer): void
+}
+
+abstract class Payment {
+  - paymentID: int
+  - amount: double
+  - paymentDate: Date
+  - status: String
+
+  + Payment()
+  + Payment(amount: double, paymentDate: Date)
+  + processPayment(): String
+  + {abstract} generateReceipt(): String
+  + {abstract} validatePayment(): boolean
+  + getPaymentID(): int
+  + setPaymentID(paymentID: int): void
+  + getAmount(): double
+  + setAmount(amount: double): void
+  + getPaymentDate(): Date
+  + setPaymentDate(paymentDate: Date): void
+  + getStatus(): String
+  + setStatus(status: String): void
+  + toString(): String
+  + equals(obj: Object): boolean
+}
+
+
+class CreditCardPayment {
+  - String cardNumber
+  - String cardHolderName
+  - Date expiryDate
+  - int cvv
+
+  + CreditCardPayment()
+  + CreditCardPayment(String, String, Date, int, int, double, Date)
+  + String getCardNumber()
+  + void setCardNumber(String)
+  + String getCardHolderName()
+  + void setCardHolderName(String)
+  + Date getExpiryDate()
+  + void setExpiryDate(Date)
+  + int getCvv()
+  + void setCvv(int)
+  + String generateReceipt()
+  + boolean validatePayment()
+  + String getMaskedNumber()
+  + String toString()
+  + boolean equals(Object)
+  + {static} void processPayment(Scanner, Customer, ShoppingCart)
+  + {static} Date getExpiryDate(Scanner)
+  + {static} CreditCardPayment getCreditCardDetails(Scanner, double)
+}
+
+
+interface Display {
+  + {abstract} displayOverview(i: int): void
+  + {static} printDivider(): void
+  + {static} getDivider(): String
+  + {static} getSpace(): String
+  + {static} printSpace(): void
+  + {static} getDoubleDivider(): String
+  + {static} printDoubleDivider(): void
+  + {static} displayWelcomeMessage(): void
+  + {static} displaySadToSeeYouMessage(): void
+  + {static} displayThankYouMessage(): void
+  + {static} displayByeByeMessage(): void
+}
+
+
+class Abaya {
+  - productId: int
+  - style: String
+  - fabricType: String
+  - colour: String
+  - size: int
+  - price: double
+
+  + Abaya()
+  + Abaya(productId: int, style: String, fabricType: String, colour: String, size: int, price: double)
+  + getProductId(): int
+  + getStyle(): String
+  + getFabricType(): String
+  + getColour(): String
+  + getSize(): int
+  + getPrice(): double
+  + setProductId(productId: int): void
+  + setStyle(style: String): void
+  + setFabricType(fabricType: String): void
+  + setColour(colour: String): void
+  + setSize(size: int): void
+  + setPrice(price: double): void
+  + equals(otherAbaya: Object): boolean
+  + toString(): String
+  + calculatePrice(): double
+  + isAvailableInSize(size: int): boolean
+  + isAvailableInColour(colour: String): boolean
+  + isAvailableInFabric(fabricType: String): boolean
+  + isAvailableInStyle(style: String): boolean
+  + {static} displayFabricMenu(): void
+  + {static} displayStyleMenu(): void
+  + {static} displayColoursMenu(): void
+  + displayOverview(index: int): void
+  + {static} customizeAbayas(scanner: Scanner): ArrayList<Abaya>
+  + {static} customizeSingleAbaya(scanner: Scanner, abaya: Abaya): void
+  + changeAbayaFeature(scanner: Scanner): void
+}
+
+
+ShoppingCart "1" -- "*" Abaya : contains
+Customer "1" -- "1" ShoppingCart : has
+Customer "1" -- "*" Order : has
+Order "1" -- "1" ShoppingCart : includes
+Order "1" -- "1" Customer : belongs to
+Order "1" -- "1" Payment : has
+CreditCardPayment --|> Payment : extends
+Abaya ..|> Display : implements
+
+
+CreditCardPayment ..> Customer : uses
+CreditCardPayment ..> ShoppingCart : uses
+CreditCardPayment ..> Order : uses
+CreditCardPayment ..> Display : uses
+
+
+
+@enduml
+
