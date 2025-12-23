@@ -7,7 +7,7 @@ Academic group project developed as part of a Web Development course.
 
 ## Features
 - User registration and authentication
-- Add, edit, delete, and browse dessert recipes
+- Add, edit, and browse dessert recipes
 - Recipe of the Day functionality
 - Responsive and easy-to-use interface
 
