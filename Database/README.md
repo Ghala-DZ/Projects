@@ -1,4 +1,4 @@
-# 🎬 Cinema Management System
+#Cinema Management System
 
 An academic database application designed to manage and organize cinema-related data including films, directors, actors, genres, and ratings.
 
