@@ -1,9 +1,6 @@
-#Cinema Management System
+## Cinema Management System
 
 An academic database application designed to manage and organize cinema-related data including films, directors, actors, genres, and ratings.
-
-## Project Type
-Academic project developed as part of a university database coursework.
 
 ## Description
 The Cinema Management System is a database-driven application that models real-world cinema operations.  
